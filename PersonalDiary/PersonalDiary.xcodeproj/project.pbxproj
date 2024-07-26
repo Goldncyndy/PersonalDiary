@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE4CE1B22C528252005183A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4CE1B12C528252005183A6 /* AppDelegate.swift */; };
 		CE4CE1B42C528252005183A6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4CE1B32C528252005183A6 /* SceneDelegate.swift */; };
-		CE4CE1B62C528252005183A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4CE1B52C528252005183A6 /* ViewController.swift */; };
+		CE4CE1B62C528252005183A6 /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4CE1B52C528252005183A6 /* EventsViewController.swift */; };
 		CE4CE1B92C528252005183A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE4CE1B72C528252005183A6 /* Main.storyboard */; };
 		CE4CE1BC2C528252005183A6 /* PersonalDiary.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE4CE1BA2C528252005183A6 /* PersonalDiary.xcdatamodeld */; };
 		CE4CE1BE2C528255005183A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4CE1BD2C528255005183A6 /* Assets.xcassets */; };
@@ -17,6 +17,11 @@
 		CE4CE1CC2C528255005183A6 /* PersonalDiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4CE1CB2C528255005183A6 /* PersonalDiaryTests.swift */; };
 		CE4CE1D62C528255005183A6 /* PersonalDiaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4CE1D52C528255005183A6 /* PersonalDiaryUITests.swift */; };
 		CE4CE1D82C528256005183A6 /* PersonalDiaryUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4CE1D72C528255005183A6 /* PersonalDiaryUITestsLaunchTests.swift */; };
+		CEABA0722C5393AE009B7C8A /* EventsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA0712C5393AE009B7C8A /* EventsCollectionViewCell.swift */; };
+		CEABA0742C5397B2009B7C8A /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA0732C5397B2009B7C8A /* EventsModel.swift */; };
+		CEABA0762C539CB9009B7C8A /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA0752C539CB9009B7C8A /* EventViewModel.swift */; };
+		CEABA07A2C539DD0009B7C8A /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA0792C539DD0009B7C8A /* EventDetailViewController.swift */; };
+		CEABA07D2C539F98009B7C8A /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA07C2C539F98009B7C8A /* AddEventViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +45,7 @@
 		CE4CE1AE2C528252005183A6 /* PersonalDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4CE1B12C528252005183A6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE4CE1B32C528252005183A6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CE4CE1B52C528252005183A6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CE4CE1B52C528252005183A6 /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		CE4CE1B82C528252005183A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE4CE1BB2C528252005183A6 /* PersonalDiary.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PersonalDiary.xcdatamodel; sourceTree = "<group>"; };
 		CE4CE1BD2C528255005183A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +56,11 @@
 		CE4CE1D12C528255005183A6 /* PersonalDiaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PersonalDiaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE4CE1D52C528255005183A6 /* PersonalDiaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDiaryUITests.swift; sourceTree = "<group>"; };
 		CE4CE1D72C528255005183A6 /* PersonalDiaryUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalDiaryUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CEABA0712C5393AE009B7C8A /* EventsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsCollectionViewCell.swift; sourceTree = "<group>"; };
+		CEABA0732C5397B2009B7C8A /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
+		CEABA0752C539CB9009B7C8A /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		CEABA0792C539DD0009B7C8A /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
+		CEABA07C2C539F98009B7C8A /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,7 +176,8 @@
 		CE4CE1E82C5283BB005183A6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				CE4CE1B52C528252005183A6 /* ViewController.swift */,
+				CEABA07B2C539F76009B7C8A /* AddEventController */,
+				CEABA0772C539D7D009B7C8A /* EventDetailController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -174,6 +185,7 @@
 		CE4CE1E92C5283CB005183A6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CEABA0732C5397B2009B7C8A /* EventsModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -181,6 +193,7 @@
 		CE4CE1EA2C5283DD005183A6 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				CEABA0752C539CB9009B7C8A /* EventViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -192,6 +205,32 @@
 				CE4CE1B32C528252005183A6 /* SceneDelegate.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		CEABA0772C539D7D009B7C8A /* EventDetailController */ = {
+			isa = PBXGroup;
+			children = (
+				CEABA0792C539DD0009B7C8A /* EventDetailViewController.swift */,
+				CEABA0782C539D94009B7C8A /* EventController */,
+			);
+			path = EventDetailController;
+			sourceTree = "<group>";
+		};
+		CEABA0782C539D94009B7C8A /* EventController */ = {
+			isa = PBXGroup;
+			children = (
+				CEABA0712C5393AE009B7C8A /* EventsCollectionViewCell.swift */,
+				CE4CE1B52C528252005183A6 /* EventsViewController.swift */,
+			);
+			path = EventController;
+			sourceTree = "<group>";
+		};
+		CEABA07B2C539F76009B7C8A /* AddEventController */ = {
+			isa = PBXGroup;
+			children = (
+				CEABA07C2C539F98009B7C8A /* AddEventViewController.swift */,
+			);
+			path = AddEventController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,9 +364,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE4CE1B62C528252005183A6 /* ViewController.swift in Sources */,
+				CE4CE1B62C528252005183A6 /* EventsViewController.swift in Sources */,
 				CE4CE1B22C528252005183A6 /* AppDelegate.swift in Sources */,
 				CE4CE1B42C528252005183A6 /* SceneDelegate.swift in Sources */,
+				CEABA0722C5393AE009B7C8A /* EventsCollectionViewCell.swift in Sources */,
+				CEABA0742C5397B2009B7C8A /* EventsModel.swift in Sources */,
+				CEABA0762C539CB9009B7C8A /* EventViewModel.swift in Sources */,
+				CEABA07A2C539DD0009B7C8A /* EventDetailViewController.swift in Sources */,
+				CEABA07D2C539F98009B7C8A /* AddEventViewController.swift in Sources */,
 				CE4CE1BC2C528252005183A6 /* PersonalDiary.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,7 +555,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PersonalDiary/Info.plist;
+				INFOPLIST_FILE = PersonalDiary/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -538,7 +582,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PersonalDiary/Info.plist;
+				INFOPLIST_FILE = PersonalDiary/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
