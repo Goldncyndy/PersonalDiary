@@ -32,8 +32,6 @@ class EventsViewController: UIViewController {
         super.viewWillAppear(animated)
         events = EventManager.shared.events
         fetchEvents()
-        events.reverse()
-        collectionView.reloadData()
     }
 
     
@@ -119,12 +117,12 @@ class EventsViewController: UIViewController {
                 self?.events.append(event)
                 self?.collectionView.reloadData()
             }
-            addEventVC.modalPresentationStyle = .formSheet
-            present(addEventVC, animated: true, completion: nil)
+        navigationController?.pushViewController(addEventVC, animated: true)
         }
         
         private func fetchEvents() {
             events = EventManager.shared.getEvents()
+            events.reverse()
             collectionView.reloadData()
         }
 

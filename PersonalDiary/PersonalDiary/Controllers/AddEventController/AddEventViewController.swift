@@ -14,7 +14,6 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
     private let pageTitleLabel = UILabel()
     private let addButton = UIButton(type: .system)
     private let clearButton = UIButton(type: .system)
-    private let doneButton = UIButton(type: .system)
     private let imageView = UIImageView()
     private let titleTextField = UITextField()
     private let datePicker = UIDatePicker()
@@ -81,8 +80,8 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         view.addSubview(descriptionTextView)
 
         // Add Button Setup
-        addButton.setTitle("Add", for: .normal)
-        addButton.backgroundColor = .systemPurple
+        addButton.setTitle("Add Event", for: .normal)
+        addButton.backgroundColor = .systemPink
         addButton.setTitleColor(.white, for: .normal)
         addButton.layer.cornerRadius = 4
         addButton.translatesAutoresizingMaskIntoConstraints = false
@@ -91,21 +90,13 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
 
         // Clear Button Setup
         clearButton.setTitle("Clear", for: .normal)
-        clearButton.backgroundColor = .systemGray
-        clearButton.setTitleColor(.white, for: .normal)
+        clearButton.backgroundColor = .white
+        clearButton.setTitleColor(.systemPink, for: .normal)
         clearButton.layer.cornerRadius = 4
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         clearButton.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         view.addSubview(clearButton)
 
-        // Done Button Setup
-        doneButton.setTitle("Done", for: .normal)
-        doneButton.backgroundColor = .systemBlue
-        doneButton.setTitleColor(.white, for: .normal)
-        doneButton.layer.cornerRadius = 4
-        doneButton.translatesAutoresizingMaskIntoConstraints = false
-        doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
-        view.addSubview(doneButton)
     }
 
     private func setupConstraints() {
@@ -145,22 +136,18 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
             descriptionTextView.heightAnchor.constraint(equalToConstant: 160),
 
             // Add Button Constraints
-            addButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
+            addButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 40),
             addButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            addButton.widthAnchor.constraint(equalToConstant: 100),
-            addButton.heightAnchor.constraint(equalToConstant: 40),
+            addButton.widthAnchor.constraint(equalToConstant: view.frame.width/2 - 23),
+            addButton.heightAnchor.constraint(equalToConstant: 50),
 
             // Clear Button Constraints
-            clearButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
-            clearButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            clearButton.widthAnchor.constraint(equalToConstant: 100),
-            clearButton.heightAnchor.constraint(equalToConstant: 40),
+            clearButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 40),
+            clearButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            clearButton.widthAnchor.constraint(equalToConstant: view.frame.width/2 - 23),
+            clearButton.heightAnchor.constraint(equalToConstant: 50),
 
-            // Done Button Constraints
-            doneButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
-            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            doneButton.widthAnchor.constraint(equalToConstant: 100),
-            doneButton.heightAnchor.constraint(equalToConstant: 40)
+            
         ])
     }
 
@@ -180,7 +167,7 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
                 addButton.setTitle("Update", for: .normal)
             } else {
                 pageTitleLabel.text = "Add New Event"
-                addButton.setTitle("Add", for: .normal)
+                addButton.setTitle("Add Event", for: .normal)
             }
         }
 
@@ -219,7 +206,7 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         event.date = date
         event.eventDescription = description
         
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
         
     }
 
@@ -231,7 +218,7 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         newEvent.date = date
         newEvent.eventDescription = description
         
-        dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 
 
@@ -240,7 +227,7 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         }
 
         @objc private func doneButtonTapped() {
-            dismiss(animated: true, completion: nil)
+            navigationController?.popViewController(animated: true)
         }
 
         private func clearFields() {

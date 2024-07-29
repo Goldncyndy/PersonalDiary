@@ -199,8 +199,7 @@ class EventDetailViewController: UIViewController {
         if let eventEntity = fetchEventEntity(from: eventModel, context: context) {
             let addEventVC = AddEventViewController()
             addEventVC.eventToEdit = eventEntity
-            addEventVC.modalPresentationStyle = .fullScreen
-            present(addEventVC, animated: true, completion: nil)
+            navigationController?.pushViewController(addEventVC, animated: true)
         } else {
             print("Failed to fetch event entity for editing")
         }
