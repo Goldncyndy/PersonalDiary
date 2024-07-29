@@ -22,6 +22,9 @@
 		CEABA0762C539CB9009B7C8A /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA0752C539CB9009B7C8A /* EventViewModel.swift */; };
 		CEABA07A2C539DD0009B7C8A /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA0792C539DD0009B7C8A /* EventDetailViewController.swift */; };
 		CEABA07D2C539F98009B7C8A /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA07C2C539F98009B7C8A /* AddEventViewController.swift */; };
+		CEABA07F2C53AD16009B7C8A /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA07E2C53AD16009B7C8A /* EventManager.swift */; };
+		CEABA0822C53AF9C009B7C8A /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA0812C53AF9C009B7C8A /* OnboardingViewController.swift */; };
+		CEABA0842C53B57C009B7C8A /* Ext+Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABA0832C53B57C009B7C8A /* Ext+Notifications.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		CEABA0752C539CB9009B7C8A /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		CEABA0792C539DD0009B7C8A /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		CEABA07C2C539F98009B7C8A /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
+		CEABA07E2C53AD16009B7C8A /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		CEABA0812C53AF9C009B7C8A /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		CEABA0832C53B57C009B7C8A /* Ext+Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Notifications.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +168,8 @@
 		CE4CE1E62C52839E005183A6 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				CEABA07E2C53AD16009B7C8A /* EventManager.swift */,
+				CEABA0832C53B57C009B7C8A /* Ext+Notifications.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -176,6 +184,8 @@
 		CE4CE1E82C5283BB005183A6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CEABA0782C539D94009B7C8A /* EventController */,
+				CEABA0802C53AF82009B7C8A /* Onboarding */,
 				CEABA07B2C539F76009B7C8A /* AddEventController */,
 				CEABA0772C539D7D009B7C8A /* EventDetailController */,
 			);
@@ -211,7 +221,6 @@
 			isa = PBXGroup;
 			children = (
 				CEABA0792C539DD0009B7C8A /* EventDetailViewController.swift */,
-				CEABA0782C539D94009B7C8A /* EventController */,
 			);
 			path = EventDetailController;
 			sourceTree = "<group>";
@@ -231,6 +240,14 @@
 				CEABA07C2C539F98009B7C8A /* AddEventViewController.swift */,
 			);
 			path = AddEventController;
+			sourceTree = "<group>";
+		};
+		CEABA0802C53AF82009B7C8A /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				CEABA0812C53AF9C009B7C8A /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -364,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEABA07F2C53AD16009B7C8A /* EventManager.swift in Sources */,
 				CE4CE1B62C528252005183A6 /* EventsViewController.swift in Sources */,
 				CE4CE1B22C528252005183A6 /* AppDelegate.swift in Sources */,
 				CE4CE1B42C528252005183A6 /* SceneDelegate.swift in Sources */,
@@ -371,7 +389,9 @@
 				CEABA0742C5397B2009B7C8A /* EventsModel.swift in Sources */,
 				CEABA0762C539CB9009B7C8A /* EventViewModel.swift in Sources */,
 				CEABA07A2C539DD0009B7C8A /* EventDetailViewController.swift in Sources */,
+				CEABA0842C53B57C009B7C8A /* Ext+Notifications.swift in Sources */,
 				CEABA07D2C539F98009B7C8A /* AddEventViewController.swift in Sources */,
+				CEABA0822C53AF9C009B7C8A /* OnboardingViewController.swift in Sources */,
 				CE4CE1BC2C528252005183A6 /* PersonalDiary.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
