@@ -142,7 +142,7 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
             descriptionTextView.topAnchor.constraint(equalTo: datePicker.bottomAnchor, constant: 20),
             descriptionTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             descriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            descriptionTextView.heightAnchor.constraint(equalToConstant: 100),
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 160),
 
             // Add Button Constraints
             addButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
@@ -218,6 +218,9 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         event.title = title
         event.date = date
         event.eventDescription = description
+        
+        dismiss(animated: true, completion: nil)
+        
     }
 
     private func createNewEvent(imageName: String, title: String, date: Date, description: String, context: NSManagedObjectContext) {
@@ -227,6 +230,8 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         newEvent.title = title
         newEvent.date = date
         newEvent.eventDescription = description
+        
+        dismiss(animated: true, completion: nil)
     }
 
 

@@ -99,13 +99,37 @@ class EventsCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func configure(with event: EventsModel) {
-        imageView.image = UIImage(named: event.imageName ?? "")
+        if let imageName = event.imageName {
+            let fileManager = FileManager.default
+            let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+            let imagePath = documentDirectory?.appendingPathComponent(imageName).path
+            
+            if let imagePath = imagePath, let image = UIImage(contentsOfFile: imagePath) {
+                imageView.image = image
+            } else {
+                imageView.image = UIImage(named: "dairy1") // Optional: Use a placeholder image
+            }
+        } else {
+            imageView.image = UIImage(named: "dairy4") // Optional: Use a placeholder image
+        }
+        
         titleLabel.text = event.title
-        dateLabel.text = "\(event.date)"
+        
+        // Format the date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none 
+
+        // Convert date to formatted string
+        let formattedDate = dateFormatter.string(from: event.date)
+            
+        dateLabel.text = formattedDate
+        
         self.event = event
     }
+
     
     @objc func deleteButtonTapped() {
         guard let event = event else { return }

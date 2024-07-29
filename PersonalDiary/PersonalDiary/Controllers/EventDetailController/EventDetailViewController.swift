@@ -145,10 +145,33 @@ class EventDetailViewController: UIViewController {
 
     private func configureView() {
         guard let event = events else { return }
-        imageView.image = UIImage(named: event.imageName ?? "")
+        
+        if let imageName = event.imageName {
+            let fileManager = FileManager.default
+            let documentDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+            let imagePath = documentDirectory?.appendingPathComponent(imageName).path
+            
+            if let imagePath = imagePath, let image = UIImage(contentsOfFile: imagePath) {
+                imageView.image = image
+            } else {
+                imageView.image = UIImage(named: "dairy1")
+            }
+        } else {
+            imageView.image = UIImage(named: "dairy4")
+        }
+        
         titleLabel.text = "Diary: " + (event.title ?? "")
         descriptionLabel.text = event.eventDescription
-        dateLabel.text = "\(event.date)"
+        
+        // Format the date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+
+        // Convert date to formatted string
+        let formattedDate = dateFormatter.string(from: event.date)
+            
+        dateLabel.text = formattedDate
     }
     
     @objc func doneButtonTapped() {
@@ -175,7 +198,7 @@ class EventDetailViewController: UIViewController {
         
         if let eventEntity = fetchEventEntity(from: eventModel, context: context) {
             let addEventVC = AddEventViewController()
-            addEventVC.eventToEdit = eventEntity // Pass the event data to the AddEventViewController
+            addEventVC.eventToEdit = eventEntity
             addEventVC.modalPresentationStyle = .fullScreen
             present(addEventVC, animated: true, completion: nil)
         } else {
@@ -183,15 +206,5 @@ class EventDetailViewController: UIViewController {
         }
     }
 
-//    @objc func editButtonTapped() {
-//        eventss = events
-//        guard let event = eventss else { return }
-//        
-//        let addEventVC = AddEventViewController()
-//        addEventVC.eventToEdit = event // Pass the event data to the AddEventViewController
-//        addEventVC.modalPresentationStyle = .fullScreen
-//        present(addEventVC, animated: true, completion: nil)
-//        
- 
 }
 

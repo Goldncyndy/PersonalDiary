@@ -28,6 +28,15 @@ class EventsViewController: UIViewController {
         fetchEvents()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        events = EventManager.shared.events
+        fetchEvents()
+        events.reverse()
+        collectionView.reloadData()
+    }
+
+    
     private func setupViewModel() {
         let event1 = EventsModel(id: UUID(), imageName: "diary1", title: "Diary Test 1", date: Date(), eventDescription: "My Story here 1...")
         let event2 = EventsModel(id: UUID(), imageName: "diary2", title: "Diary Test 2", date: Date().addingTimeInterval(-86400), eventDescription: "My Story here 2...")
@@ -148,7 +157,7 @@ extension EventsViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat = 10
         let itemWidth = collectionView.frame.width - padding * 2
-        return CGSize(width: itemWidth, height: 140)
+        return CGSize(width: itemWidth, height: 180)
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
