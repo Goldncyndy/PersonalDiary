@@ -32,9 +32,9 @@ extension EventEntity {
 }
 
 struct EventsModel {
-    let id: UUID
-    let imageName: String
-    let title: String
-    let date: Date
-    let eventDescription: String
+    var id: UUID?
+    var imageName: String?
+    var title: String?
+    var date: Date
+    var eventDescription: String?
 }

@@ -34,7 +34,7 @@ class EventManager {
     func removeEvent(_ event: EventsModel) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let fetchRequest: NSFetchRequest<EventEntity> = EventEntity.fetchRequest() as! NSFetchRequest<EventEntity>
-        fetchRequest.predicate = NSPredicate(format: "id == %@", event.id.uuidString)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", event.id?.uuidString ?? "")
         
         do {
             let eventEntities = try context.fetch(fetchRequest)

@@ -32,10 +32,8 @@ class EventsViewController: UIViewController {
         let event1 = EventsModel(id: UUID(), imageName: "diary1", title: "Diary Test 1", date: Date(), eventDescription: "My Story here 1...")
         let event2 = EventsModel(id: UUID(), imageName: "diary2", title: "Diary Test 2", date: Date().addingTimeInterval(-86400), eventDescription: "My Story here 2...")
         let event3 = EventsModel(id: UUID(), imageName: "diary3", title: "Diary Test 3", date: Date().addingTimeInterval(-172800), eventDescription: "My Story here 3...")
-        let event4 = EventsModel(id: UUID(), imageName: "diary1", title: "Diary Test 1", date: Date(), eventDescription: "My Story here 1...")
-        let event5 = EventsModel(id: UUID(), imageName: "diary2", title: "Diary Test 2", date: Date().addingTimeInterval(-86400), eventDescription: "My Story here 2...")
 
-        events = [event1, event2, event3, event4, event5]
+        events = [event1, event2]
         
         viewModel = EventViewModel(events: events)
     }

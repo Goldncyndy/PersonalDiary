@@ -20,6 +20,7 @@ class EventDetailViewController: UIViewController {
     private let doneButton = UIButton(type: .system)
     
     var events: EventsModel?
+    var eventss: EventEntity?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -144,8 +145,8 @@ class EventDetailViewController: UIViewController {
 
     private func configureView() {
         guard let event = events else { return }
-        imageView.image = UIImage(named: event.imageName)
-        titleLabel.text = "Diary: " + event.title
+        imageView.image = UIImage(named: event.imageName ?? "")
+        titleLabel.text = "Diary: " + (event.title ?? "")
         descriptionLabel.text = event.eventDescription
         dateLabel.text = "\(event.date)"
     }
@@ -154,11 +155,43 @@ class EventDetailViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func editButtonTapped() {
-        let addEventVC = AddEventViewController()
-        addEventVC.modalPresentationStyle = .fullScreen
-        present(addEventVC, animated: true, completion: nil)
+    func fetchEventEntity(from model: EventsModel, context: NSManagedObjectContext) -> EventEntity? {
+        let fetchRequest: NSFetchRequest<EventEntity> = EventEntity.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", model.id! as any CVarArg as CVarArg)
         
+        do {
+            let eventEntities = try context.fetch(fetchRequest)
+            return eventEntities.first
+        } catch {
+            print("Failed to fetch event entity: \(error.localizedDescription)")
+            return nil
+        }
     }
+
+    @objc func editButtonTapped() {
+        guard let eventModel = events else { return }
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        if let eventEntity = fetchEventEntity(from: eventModel, context: context) {
+            let addEventVC = AddEventViewController()
+            addEventVC.eventToEdit = eventEntity // Pass the event data to the AddEventViewController
+            addEventVC.modalPresentationStyle = .fullScreen
+            present(addEventVC, animated: true, completion: nil)
+        } else {
+            print("Failed to fetch event entity for editing")
+        }
+    }
+
+//    @objc func editButtonTapped() {
+//        eventss = events
+//        guard let event = eventss else { return }
+//        
+//        let addEventVC = AddEventViewController()
+//        addEventVC.eventToEdit = event // Pass the event data to the AddEventViewController
+//        addEventVC.modalPresentationStyle = .fullScreen
+//        present(addEventVC, animated: true, completion: nil)
+//        
+ 
 }
 

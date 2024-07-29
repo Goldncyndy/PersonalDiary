@@ -19,14 +19,16 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
     private let titleTextField = UITextField()
     private let datePicker = UIDatePicker()
     private let descriptionTextView = UITextView()
-    private let eventOfDayTextField = UITextField()
     
     var onEventAdded: ((EventsModel) -> Void)?
     private let imagePicker = UIImagePickerController()
+    
+    var eventToEdit: EventEntity?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        configureView()
         setupConstraints()
         imagePicker.delegate = self
     }
@@ -77,12 +79,6 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         descriptionTextView.layer.cornerRadius = 4
         descriptionTextView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(descriptionTextView)
-
-        // Event of the Day Text Field Setup
-        eventOfDayTextField.placeholder = "Event of the Day"
-        eventOfDayTextField.borderStyle = .roundedRect
-        eventOfDayTextField.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(eventOfDayTextField)
 
         // Add Button Setup
         addButton.setTitle("Add", for: .normal)
@@ -148,36 +144,49 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
             descriptionTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             descriptionTextView.heightAnchor.constraint(equalToConstant: 100),
 
-            // Event of the Day Text Field Constraints
-            eventOfDayTextField.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
-            eventOfDayTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            eventOfDayTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            eventOfDayTextField.heightAnchor.constraint(equalToConstant: 40),
-
             // Add Button Constraints
-            addButton.topAnchor.constraint(equalTo: eventOfDayTextField.bottomAnchor, constant: 20),
+            addButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
             addButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             addButton.widthAnchor.constraint(equalToConstant: 100),
             addButton.heightAnchor.constraint(equalToConstant: 40),
 
             // Clear Button Constraints
-            clearButton.topAnchor.constraint(equalTo: eventOfDayTextField.bottomAnchor, constant: 20),
+            clearButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
             clearButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             clearButton.widthAnchor.constraint(equalToConstant: 100),
             clearButton.heightAnchor.constraint(equalToConstant: 40),
 
             // Done Button Constraints
-            doneButton.topAnchor.constraint(equalTo: eventOfDayTextField.bottomAnchor, constant: 20),
+            doneButton.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
             doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             doneButton.widthAnchor.constraint(equalToConstant: 100),
             doneButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 
+    private func configureView() {
+            if let event = eventToEdit {
+                // Populate the UI with event data for editing
+                titleTextField.text = event.title
+                descriptionTextView.text = event.eventDescription
+                datePicker.date = event.date ?? Date()
+                if let imageName = event.imageName {
+                    let imagePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(imageName).path
+                    if let imagePath = imagePath, let image = UIImage(contentsOfFile: imagePath) {
+                        imageView.image = image
+                    }
+                }
+                pageTitleLabel.text = "Edit Event"
+                addButton.setTitle("Update", for: .normal)
+            } else {
+                pageTitleLabel.text = "Add New Event"
+                addButton.setTitle("Add", for: .normal)
+            }
+        }
+
     @objc private func addButtonTapped() {
         guard let title = titleTextField.text, !title.isEmpty,
               let description = descriptionTextView.text, !description.isEmpty,
-              let eventOfDay = eventOfDayTextField.text, !eventOfDay.isEmpty,
               let imageData = imageView.image?.pngData(),
               let imageName = saveImageToDisk(imageData: imageData) else {
             print("Please fill in all fields")
@@ -185,16 +194,18 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         }
 
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let newEvent = EventEntity(context: context)
-        newEvent.id = UUID()  // Ensure this matches the attribute name in your Core Data model
-        newEvent.imageName = imageName
-        newEvent.title = title
-        newEvent.date = datePicker.date
-        newEvent.eventDescription = description
+        
+        if let event = eventToEdit {
+            // Update existing event
+            updateEvent(event, withImageName: imageName, title: title, date: datePicker.date, description: description)
+        } else {
+            // Create new event
+            createNewEvent(imageName: imageName, title: title, date: datePicker.date, description: description, context: context)
+        }
 
         do {
             try context.save()
-            let eventModel = EventsModel(id: newEvent.id ?? UUID(), imageName: imageName, title: title, date: datePicker.date, eventDescription: description)
+            let eventModel = EventsModel(id: eventToEdit?.id ?? UUID(), imageName: imageName, title: title, date: datePicker.date, eventDescription: description)
             onEventAdded?(eventModel)
             clearFields()
         } catch {
@@ -202,79 +213,62 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         }
     }
 
-    @objc private func clearButtonTapped() {
-        clearFields()
+    private func updateEvent(_ event: EventEntity, withImageName imageName: String, title: String, date: Date, description: String) {
+        event.imageName = imageName
+        event.title = title
+        event.date = date
+        event.eventDescription = description
     }
 
-    @objc private func doneButtonTapped() {
-        dismiss(animated: true, completion: nil)
+    private func createNewEvent(imageName: String, title: String, date: Date, description: String, context: NSManagedObjectContext) {
+        let newEvent = EventEntity(context: context)
+        newEvent.id = UUID()
+        newEvent.imageName = imageName
+        newEvent.title = title
+        newEvent.date = date
+        newEvent.eventDescription = description
     }
 
-    private func clearFields() {
-        titleTextField.text = ""
-        descriptionTextView.text = ""
-        eventOfDayTextField.text = ""
-        imageView.image = nil
-        datePicker.date = Date()
-    }
 
-    @objc private func imageViewTapped() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = .photoLibrary
-        present(imagePickerController, animated: true, completion: nil)
-    }
-
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let pickedImage = info[.originalImage] as? UIImage {
-            imageView.image = pickedImage
+        @objc private func clearButtonTapped() {
+            clearFields()
         }
-        dismiss(animated: true, completion: nil)
-    }
 
-    private func saveImageToDisk(imageData: Data) -> String? {
-        let fileName = UUID().uuidString + ".png"
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let filePath = paths[0].appendingPathComponent(fileName)
-        do {
-            try imageData.write(to: filePath)
-            return fileName
-        } catch {
-            print("Error saving image to disk: \(error.localizedDescription)")
-            return nil
+        @objc private func doneButtonTapped() {
+            dismiss(animated: true, completion: nil)
+        }
+
+        private func clearFields() {
+            titleTextField.text = ""
+            descriptionTextView.text = ""
+            imageView.image = nil
+            datePicker.date = Date()
+        }
+
+        @objc private func imageViewTapped() {
+            let imagePickerController = UIImagePickerController()
+            imagePickerController.delegate = self
+            imagePickerController.sourceType = .photoLibrary
+            present(imagePickerController, animated: true, completion: nil)
+        }
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let pickedImage = info[.originalImage] as? UIImage {
+                imageView.image = pickedImage
+            }
+            dismiss(animated: true, completion: nil)
+        }
+
+        private func saveImageToDisk(imageData: Data) -> String? {
+            let fileName = UUID().uuidString + ".png"
+            let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+            let filePath = paths[0].appendingPathComponent(fileName)
+            do {
+                try imageData.write(to: filePath)
+                return fileName
+            } catch {
+                print("Error saving image to disk: \(error.localizedDescription)")
+                return nil
+            }
         }
     }
-}
-
-//    @objc private func imageViewTapped() {
-//        let imagePickerController = UIImagePickerController()
-//        imagePickerController.delegate = self
-//        imagePickerController.sourceType = .photoLibrary
-//        present(imagePickerController, animated: true, completion: nil)
-//    }
-//
-//    private func saveImageToDisk(imageData: Data) -> String? {
-//        let fileName = UUID().uuidString + ".png"
-//        let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
-//        do {
-//            try imageData.write(to: fileURL)
-//            return fileName
-//        } catch {
-//            print("Error saving image: \(error.localizedDescription)")
-//            return nil
-//        }
-//    }
-
-    // UIImagePickerControllerDelegate methods
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let selectedImage = info[.originalImage] as? UIImage {
-//            imageView.image = selectedImage
-//        }
-//        dismiss(animated: true, completion: nil)
-//    }
-//
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        dismiss(animated: true, completion: nil)
-//    }
-//}
-

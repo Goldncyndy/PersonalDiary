@@ -101,7 +101,7 @@ class EventsCollectionViewCell: UICollectionViewCell {
     }
 
     func configure(with event: EventsModel) {
-        imageView.image = UIImage(named: event.imageName)
+        imageView.image = UIImage(named: event.imageName ?? "")
         titleLabel.text = event.title
         dateLabel.text = "\(event.date)"
         self.event = event
