@@ -21,11 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Set the root view controller based on onboarding status
         let initialViewController: UIViewController
-        if hasCompletedOnboarding {
-            initialViewController = EventsViewController()
-        } else {
+//        if hasCompletedOnboarding {
+//            initialViewController = EventsViewController()
+//        } else {
             initialViewController = OnboardingViewController()
-        }
+//        }
         
         let navigationController = UINavigationController(rootViewController: initialViewController)
         window?.rootViewController = navigationController

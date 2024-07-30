@@ -173,10 +173,30 @@ extension EventsViewController: UICollectionViewDataSource, UICollectionViewDele
 
 }
 
+
 extension EventsViewController: EventCollectionViewCellDelegate {
+    
     func eventCollectionViewCell(_ cell: EventsCollectionViewCell, didTapDeleteFor event: EventsModel) {
-        EventManager.shared.removeEvent(event)
-        fetchEvents()
-        NotificationCenter.default.post(name: .eventUpdated, object: nil)
+        // Create the alert controller
+        let alertController = UIAlertController(title: "Delete Event", message: "Are you sure you want to delete this event?", preferredStyle: .alert)
+        
+        // Add the "Yes" action
+        let deleteAction = UIAlertAction(title: "Yes", style: .destructive) { [weak self] _ in
+            // Proceed to delete the event
+            EventManager.shared.removeEvent(event)
+            self?.fetchEvents()
+            NotificationCenter.default.post(name: .eventUpdated, object: nil)
+        }
+        
+        // Add the "No" action
+        let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+        
+        // Add actions to the alert controller
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        // Present the alert controller
+        present(alertController, animated: true, completion: nil)
     }
 }
+

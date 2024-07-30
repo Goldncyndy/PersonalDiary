@@ -12,6 +12,7 @@ class OnboardingViewController: UIViewController {
     private let imageView = UIImageView()
     private let darkOverlayView = UIView()
     private let titleLabel = UILabel()
+    private let pageTitleLabel = UILabel()
     private let descriptionLabel = UILabel()
     let skipButton = UIButton(type: .system)
 
@@ -27,17 +28,25 @@ class OnboardingViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "diary5")
+        imageView.image = UIImage(named: "diary1")
         view.addSubview(imageView)
 
         // Dark Overlay View Setup
         darkOverlayView.translatesAutoresizingMaskIntoConstraints = false
         darkOverlayView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         view.addSubview(darkOverlayView)
+        
+        // Page Title Label Setup
+        pageTitleLabel.font = UIFont.systemFont(ofSize: 26, weight: .bold)
+        pageTitleLabel.textColor = .systemPink
+        pageTitleLabel.textAlignment = .center
+        pageTitleLabel.text = "PERSONAL DIARY"
+        pageTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(pageTitleLabel)
 
         // Title Label Setup
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.text = "My Personal Diary"
+        titleLabel.text = "This is my Personal Diary"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
         titleLabel.textAlignment = .center
         titleLabel.textColor = .white
@@ -54,7 +63,8 @@ class OnboardingViewController: UIViewController {
         view.addSubview(descriptionLabel)
         
         // skip button setup
-        skipButton.setTitle("Skip", for: .normal)
+        skipButton.setTitle("Let's go", for: .normal)
+        skipButton.tintColor = .white
         skipButton.translatesAutoresizingMaskIntoConstraints = false
         skipButton.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         view.addSubview(skipButton)
@@ -63,7 +73,7 @@ class OnboardingViewController: UIViewController {
         NSLayoutConstraint.activate([
             
             // Skip Button Constraints
-            skipButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            skipButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             skipButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
             // Image View Constraints
@@ -72,11 +82,15 @@ class OnboardingViewController: UIViewController {
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
+            // Page Title Label Constraints
+            pageTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            pageTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
             // Dark Overlay View Constraints
             darkOverlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             darkOverlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             darkOverlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            darkOverlayView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25),
+            darkOverlayView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
 
             // Title Label Constraints
             titleLabel.bottomAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -10),

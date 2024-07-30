@@ -30,6 +30,8 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
         configureView()
         setupConstraints()
         imagePicker.delegate = self
+        
+        setupTapGesture()
     }
 
     private func setupViews() {
@@ -150,6 +152,15 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
             
         ])
     }
+    
+    private func setupTapGesture() {
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            view.addGestureRecognizer(tapGesture)
+        }
+        
+        @objc private func dismissKeyboard() {
+            view.endEditing(true)
+        }
 
     private func configureView() {
             if let event = eventToEdit {
@@ -177,6 +188,7 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
               let imageData = imageView.image?.pngData(),
               let imageName = saveImageToDisk(imageData: imageData) else {
             print("Please fill in all fields")
+            showAlert(message: "Please fill in all fields")
             return
         }
 
@@ -199,6 +211,13 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
             print("Failed to save event: \(error.localizedDescription)")
         }
     }
+    
+    private func showAlert(message: String) {
+           let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+           let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+           alertController.addAction(okAction)
+           present(alertController, animated: true, completion: nil)
+       }
 
     private func updateEvent(_ event: EventEntity, withImageName imageName: String, title: String, date: Date, description: String) {
         event.imageName = imageName
@@ -223,7 +242,7 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
 
 
         @objc private func clearButtonTapped() {
-            clearFields()
+            clearFieldsButtonTapped()
         }
 
         @objc private func doneButtonTapped() {
@@ -235,6 +254,27 @@ class AddEventViewController: UIViewController, UIImagePickerControllerDelegate,
             descriptionTextView.text = ""
             imageView.image = nil
             datePicker.date = Date()
+        }
+        
+        func clearFieldsButtonTapped() {
+            // Create the alert controller
+            let alertController = UIAlertController(title: "Clear All Fields", message: "Are you sure you want to clear all fields?", preferredStyle: .alert)
+            
+            // Add the "Yes" action
+            let clearAction = UIAlertAction(title: "Yes", style: .destructive) { [weak self] _ in
+                // Proceed to clear the fields
+                self?.clearFields()
+            }
+            
+            // Add the "No" action
+            let cancelAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+            
+            // Add actions to the alert controller
+            alertController.addAction(clearAction)
+            alertController.addAction(cancelAction)
+            
+            // Present the alert controller
+            present(alertController, animated: true, completion: nil)
         }
 
         @objc private func imageViewTapped() {
